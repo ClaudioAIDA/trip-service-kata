@@ -7,7 +7,7 @@ namespace TripServiceKata.Tests
     {
 
         [Fact]
-        public void throw_UserNotLoggedInException_when_the_user_is_null()
+        public void throw_UserNotLoggedInException_when_the_user_is_not_logged_in()
         {
             TripService tripService = new TripService();
 
