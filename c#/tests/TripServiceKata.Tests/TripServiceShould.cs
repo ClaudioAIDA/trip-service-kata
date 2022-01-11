@@ -1,4 +1,7 @@
-﻿using TripServiceKata.Exception;
+﻿using Moq;
+using TripServiceKata.Entity;
+using TripServiceKata.Exception;
+using TripServiceKata.Service;
 using Xunit;
 
 namespace TripServiceKata.Tests
@@ -9,7 +12,11 @@ namespace TripServiceKata.Tests
         [Fact]
         public void throw_UserNotLoggedInException_when_the_user_is_not_logged_in()
         {
-            TripService tripService = new TripService(new UserSessionManager());
+            UserSessionManager userSessionManager = Mock.Of<UserSessionManager>();
+            User nullUser = null;
+            Mock.Get(userSessionManager).Setup(usm => usm.GetLoggedUser()).Returns(nullUser);
+
+            TripService tripService = new TripService(userSessionManager);
 
             Assert.Throws<UserNotLoggedInException>(() => tripService.GetTripsByUser(null));
         }
