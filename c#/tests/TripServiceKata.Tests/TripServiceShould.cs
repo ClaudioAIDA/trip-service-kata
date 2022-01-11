@@ -34,5 +34,20 @@ namespace TripServiceKata.Tests
 
             Assert.Empty(trips);
         }
+
+        [Fact]
+        public void return_empty_list_when_the_logged_user_and_the_user_are_not_friends()
+        {
+            UserSessionManager userSessionManager = Mock.Of<UserSessionManager>();
+            TripService tripService = new TripService(userSessionManager);
+            User userWithFriends = new User();
+            userWithFriends.AddFriend(new User());
+            User loggedUser = new User();
+            Mock.Get(userSessionManager).Setup(usm => usm.GetLoggedUser()).Returns(loggedUser);
+
+            List<Trip> trips = tripService.GetTripsByUser(userWithFriends);
+
+            Assert.Empty(trips);
+        }
     }
 }
