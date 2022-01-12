@@ -14,7 +14,7 @@ namespace TripServiceKata.Tests
         public void throw_UserNotLoggedInException_when_the_user_is_not_logged_in()
         {
             UserSessionManager userSessionManager = Mock.Of<UserSessionManager>();
-            TripService tripService = new TripService(userSessionManager);
+            TripService tripService = new TripService(userSessionManager, new TripDAOWrapper());
             User nullUser = null;
             Mock.Get(userSessionManager).Setup(usm => usm.GetLoggedUser()).Returns(nullUser);
 
@@ -25,7 +25,7 @@ namespace TripServiceKata.Tests
         public void returns_empty_list_when_the_user_doesnt_have_friends()
         {
             UserSessionManager userSessionManager = Mock.Of<UserSessionManager>();
-            TripService tripService = new TripService(userSessionManager);
+            TripService tripService = new TripService(userSessionManager, new TripDAOWrapper());
             User userWithoutFriends = new User();
             User loggedUser = new User();
             Mock.Get(userSessionManager).Setup(usm => usm.GetLoggedUser()).Returns(loggedUser);
@@ -39,7 +39,7 @@ namespace TripServiceKata.Tests
         public void return_empty_list_when_the_logged_user_and_the_user_are_not_friends()
         {
             UserSessionManager userSessionManager = Mock.Of<UserSessionManager>();
-            TripService tripService = new TripService(userSessionManager);
+            TripService tripService = new TripService(userSessionManager, new TripDAOWrapper());
             User userWithFriends = new User();
             userWithFriends.AddFriend(new User());
             User loggedUser = new User();
@@ -54,7 +54,7 @@ namespace TripServiceKata.Tests
         public void return_a_list_when_the_logged_user_and_the_user_are_friends()
         {
             UserSessionManager userSessionManager = Mock.Of<UserSessionManager>();
-            TripService tripService = new TripService(userSessionManager);
+            TripService tripService = new TripService(userSessionManager, new TripDAOWrapper());
             User loggedUser = new User();
             User userWithFriends = new User();
             userWithFriends.AddFriend(loggedUser);
