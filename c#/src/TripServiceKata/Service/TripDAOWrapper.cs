@@ -9,7 +9,7 @@ namespace TripServiceKata.Service
         {
         }
 
-        public List<Trip> FindTripsByUser(User user)
+        public virtual List<Trip> FindTripsByUser(User user)
         {
             return TripDAO.FindTripsByUser(user);
         }
